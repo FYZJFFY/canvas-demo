@@ -1,0 +1,22 @@
+body{
+    padding:0;
+    margin:0;
+  }
+  #canvas{
+    background:green;
+    position:relative;
+  }
+  #actions{
+    position:fixed;
+    left:0;
+    bottom:0;
+  }
+  .actions #brush{
+    display:none
+  }
+  .actions.x #brush{
+    display:block
+  }
+  .actions.x #eraser{
+    display:none
+  }

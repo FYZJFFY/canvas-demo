@@ -15,6 +15,15 @@ var red = document.getElementById("red");
 var blue = document.getElementById("blue");
 //绿色画笔
 var green = document.getElementById("green");
+//粗画笔
+var thick = document.getElementById("thick");
+//细画笔
+var thin = document.getElementById("thin");
+//清除按钮
+var clear = document.getElementById("clear");
+//保存按钮
+var save = document.getElementById("save");
+
 
 //1. 自动调整画笔宽高
 autoSetCanvasSize();
@@ -37,6 +46,13 @@ red.onclick = function(){
   green.classList.remove("active");
 }
 
+thin.onclick = function(){
+  context.lineWidth = 6;
+}
+thick.onclick = function(){
+  context.lineWidth = 10;
+}
+
 blue.onclick = function(){
   context.strokeStyle = "blue";
   blue.classList.add("active");
@@ -51,11 +67,25 @@ green.onclick = function(){
   blue.classList.remove("active");
 }
 
+clear.onclick = function(){
+  context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+save.onclick = function(){
+  var url = canvas.toDataURL("image/png");
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "我的画";
+  a.click();
+}
+
 //2. 监听用户操作
 listenToUser();
 
 //初始化画笔颜色为绿色
 context.strokeStyle = "green";
+//初始化画笔为细线(6px)
+context.lineWidth = 6;
 
 function drawCircle(x, y, radius) {
   context.beginPath();
@@ -67,7 +97,7 @@ function drawCircle(x, y, radius) {
 function drawLine(x1, y1, x2, y2) {
   context.beginPath();
   // context.strokeStyle = "black";
-  context.lineWidth = 6;
+  // context.lineWidth = 6;
   context.moveTo(x1, y1);
 
   context.lineTo(x2, y2);
@@ -124,7 +154,7 @@ function listenToUser() {
   } else {
     //开始触摸
     canvas.ontouchstart = function (e) {
-      console.log(e);
+      e.preventDefault();
       isDrawStart = true;
       var x = e.touches[0].clientX;
       var y = e.touches[0].clientY;
@@ -135,6 +165,7 @@ function listenToUser() {
 
     //触摸移动
     canvas.ontouchmove = function (e) {
+      e.preventDefault();
       var x = e.touches[0].clientX;
       var y = e.touches[0].clientY;
       if (isDrawStart) {
@@ -147,6 +178,7 @@ function listenToUser() {
     }
     //触摸结束
     canvas.ontouchend = function (e) {
+      e.preventDefault();
       isDrawStart = false;
     }
   }

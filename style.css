@@ -1,23 +1,69 @@
-body{
-    padding:0;
-    margin:0;
+body {
+    padding: 0;
+    margin: 0;
     overflow: hidden;
-  }
-  #canvas{
-    background:green;
-    position:relative;
-  }
-  #actions{
+}
+*{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.icon {
+    width: 2em; height: 2em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }
+
+.canvas {
+    position: relative;
+}
+
+.actions {
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.actions>li{
+    text-align: center;
+    float:left;
+    width: 3em;
+    height: 3em;
+    margin: 10px 0;
+}
+.actions svg{
+    transition: all 0.3s;
+}
+.actions .active>svg{
+    fill: red;
+    width:2.5em;
+    height: 2.5em;
+}
+.color-list{
+    /* border: 1px solid red; */
     position:fixed;
-    left:0;
-    bottom:0;
-  }
-  .actions #brush{
-    display:none
-  }
-  .actions.x #brush{
-    display:block
-  }
-  .actions.x #eraser{
-    display:none
-  }
+    top: 60px;
+    left: 10px;
+}
+.color-list>li{
+    width: 30px;
+    height:30px;
+    margin: 12px auto;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+.color-list .green{
+    background: green;
+}
+
+.color-list .blue{
+    background: blue;
+}
+
+.color-list .red{
+    background: red;
+}
+.color-list .active{
+    width: 40px;
+    height:40px;
+}

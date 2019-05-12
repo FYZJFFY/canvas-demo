@@ -9,10 +9,29 @@
 <body>
   <canvas class="canvas" id = "canvas">
   </canvas>
-  <div id="actions" class="actions">
+  <!-- <div id="actions" class="actions">
     <button id = "eraser">橡皮擦</button>
     <button id="brush">画笔</button>
-  </div>
+  </div> -->
+  <ol id="actions" class="actions">
+    <li id = "eraser" class="eraser">
+      <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-Eraser-Tool"></use>
+      </svg>
+    </li>
+    <li id="brush" class="brush active">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-pen1"></use>
+    </svg>
+    </li>
+  </ol>
+  <ol id="color" class="color-list">
+    <li id = "green" class="green active"></li>
+    <li id="blue" class="blue"></li>
+    <li id="red" class="red"></li>
+  </ol>
   <script src ="script.js"></script>
+  <script src="//at.alicdn.com/t/font_1187004_9ju2sztpptf.js
+  "></script>
 </body>
 </html>

@@ -9,24 +9,53 @@ var isDrawStart = false;
 var eraserEnabled = false;
 var eraser = document.getElementById("eraser");
 var brush = document.getElementById("brush");
+//红色画笔
+var red = document.getElementById("red");
+//蓝色画笔
+var blue = document.getElementById("blue");
+//绿色画笔
+var green = document.getElementById("green");
 
 //1. 自动调整画笔宽高
 autoSetCanvasSize();
 
 eraser.onclick = function () {
   eraserEnabled = true;
-  actions.className = "actions x"
+  eraser.classList.add("active");
+  brush.classList.remove("active");
 }
 brush.onclick = function () {
   eraserEnabled = false;
-  actions.className = "actions"
+  brush.classList.add("active");
+  eraser.classList.remove("active");
+}
+
+red.onclick = function(){
+  context.strokeStyle = "red";
+  red.classList.add("active");
+  blue.classList.remove("active");
+  green.classList.remove("active");
+}
+
+blue.onclick = function(){
+  context.strokeStyle = "blue";
+  blue.classList.add("active");
+  red.classList.remove("active");
+  green.classList.remove("active");
+}
+
+green.onclick = function(){
+  context.strokeStyle = "green";
+  green.classList.add("active");
+  red.classList.remove("active");
+  blue.classList.remove("active");
 }
 
 //2. 监听用户操作
 listenToUser();
 
-
-
+//初始化画笔颜色为绿色
+context.strokeStyle = "green";
 
 function drawCircle(x, y, radius) {
   context.beginPath();
@@ -37,7 +66,7 @@ function drawCircle(x, y, radius) {
 
 function drawLine(x1, y1, x2, y2) {
   context.beginPath();
-  context.strokeStyle = "black";
+  // context.strokeStyle = "black";
   context.lineWidth = 6;
   context.moveTo(x1, y1);
 
@@ -82,7 +111,7 @@ function listenToUser() {
       var y = e.clientY;
       if (isDrawStart) {
         if (eraserEnabled) {
-          context.clearRect(x - 6, y - 6, 10, 10)
+          context.clearRect(x - 6, y - 6, 15, 15)
         } else {
           drawLine(begin.beginX, begin.beginY, x, y);
         }
@@ -110,7 +139,7 @@ function listenToUser() {
       var y = e.touches[0].clientY;
       if (isDrawStart) {
         if (eraserEnabled) {
-          context.clearRect(x - 6, y - 6, 10, 10)
+          context.clearRect(x - 6, y - 6, 15, 15)
         } else {
           drawLine(begin.beginX, begin.beginY, x, y);
         }

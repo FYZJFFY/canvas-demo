@@ -64,32 +64,62 @@ function autoSetCanvasSize() {
 
 //监听用户操作
 function listenToUser() {
-  //按下鼠标
-  canvas.onmousedown = function (e) {
+  if (document.body.ontouchstart === undefined) {
     console.log("333");
-    isDrawStart = true;
-    var x = e.clientX;
-    var y = e.clientY;
-    begin.beginX = x;
-    begin.beginY = y;
+    //按下鼠标
+    canvas.onmousedown = function (e) {
+      isDrawStart = true;
+      var x = e.clientX;
+      var y = e.clientY;
+      begin.beginX = x;
+      begin.beginY = y;
 
-  }
+    }
 
-  //移动鼠标
-  canvas.onmousemove = function (e) {
-    console.log("333");
-    var x = e.clientX;
-    var y = e.clientY;
-    if (isDrawStart) {
-      if (eraserEnabled) {
-        context.clearRect(x - 6, y - 6, 10, 10)
-      } else {
-        drawLine(begin.beginX, begin.beginY, x, y);
+    //移动鼠标
+    canvas.onmousemove = function (e) {
+      var x = e.clientX;
+      var y = e.clientY;
+      if (isDrawStart) {
+        if (eraserEnabled) {
+          context.clearRect(x - 6, y - 6, 10, 10)
+        } else {
+          drawLine(begin.beginX, begin.beginY, x, y);
+        }
       }
     }
+    //弹起鼠标
+    canvas.onmouseup = function (e) {
+      isDrawStart = false;
+    }
+  } else {
+    //开始触摸
+    canvas.ontouchstart = function (e) {
+      console.log(e);
+      isDrawStart = true;
+      var x = e.touches[0].clientX;
+      var y = e.touches[0].clientY;
+      begin.beginX = x;
+      begin.beginY = y;
+
+    }
+
+    //触摸移动
+    canvas.ontouchmove = function (e) {
+      var x = e.touches[0].clientX;
+      var y = e.touches[0].clientY;
+      if (isDrawStart) {
+        if (eraserEnabled) {
+          context.clearRect(x - 6, y - 6, 10, 10)
+        } else {
+          drawLine(begin.beginX, begin.beginY, x, y);
+        }
+      }
+    }
+    //触摸结束
+    canvas.ontouchend = function (e) {
+      isDrawStart = false;
+    }
   }
-  //弹起鼠标
-  canvas.onmouseup = function (e) {
-    isDrawStart = false;
-  }
+
 }
